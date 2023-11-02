@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router';
 function BookingForm() {
     const [source, setSource] = useState('');
     const [destination, setDestination] = useState('');
-    const [startTime, setStartTime] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [availableCabs, setAvailableCabs] = useState([]);
     const [shortestTime, setShortestTime] = useState('');
@@ -16,6 +15,7 @@ function BookingForm() {
     const [confirmationMessage, setConfirmationMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [estimatedPrice, setEstimatedPrice] = useState('');
+    const [startTime, setStartTime] = useState(new Date().getTime());
     const navigate = useNavigate();
 
     const isFirstFormValid = () => {
@@ -182,19 +182,7 @@ function BookingForm() {
                         required
                     />
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="startTime" className="block text-md mb-2 font-medium text-gray-600">
-                        Pickup day and time:
-                    </label>
-                    <input
-                        type="datetime-local"
-                        id="startTime"
-                        className="w-full p-2 border rounded-md"
-                        value={startTime}
-                        onChange={e => setStartTime(e.target.value)}
-                        required
-                    />
-                </div>
+              
                 <button
                     onClick={showAvailableCabsFunc}
                     className={`${isFirstFormValid() ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-600 cursor-not-allowed'

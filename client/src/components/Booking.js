@@ -3,20 +3,6 @@ import { React } from "react";
 
 const Booking = ({ booking, onEdit, onDelete }) => {
 
-  const date = new Date(booking.startTime);
-
-  const datePart = date.toDateString(); // Get the date part
-  const hours = date.getHours(); // Get the hours
-  const minutes = date.getMinutes(); // Get the minutes
-
-  // Convert to a formatted time string (e.g., "HH:MM")
-  const timePart = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-
-  const getAmPm = (time) => {
-    const firstTwoDigits = time.slice(0, 2);
-    return parseInt(firstTwoDigits) >= 12 ? 'PM' : 'AM';
-  }
-
   return (
     <div className="mt-9 p-3 py-10 border border-gray-300 rounded-md shadow-md">
       <p>
@@ -33,12 +19,6 @@ const Booking = ({ booking, onEdit, onDelete }) => {
       </p>
       <p>
         <strong>Booking Price:</strong> {booking.bookingPrice} rupees
-      </p>
-      <p>
-        <strong>Pickup Day:</strong> {datePart}
-      </p>
-      <p>
-        <strong>Pickup Time:</strong> {timePart} {getAmPm(timePart)}
       </p>
       <p>
         <strong>Cab name:</strong> {booking.cab.name}
