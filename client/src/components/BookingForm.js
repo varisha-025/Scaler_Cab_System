@@ -32,7 +32,6 @@ function BookingForm() {
                 .then((response) => {
                     const filteredCabs = response.data;
                     setAvailableCabs(filteredCabs);
-                    // Process the filtered cabs as needed
                 })
 
         } catch (error) {
