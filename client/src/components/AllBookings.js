@@ -9,12 +9,11 @@ function BookingList() {
     const navigate = useNavigate();
     const [bookings, setBookings] = useState([]);
 
-
     useEffect(() => {
         async function fetchBookings() {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/bookings`);
-              
+
                 if (!response.statusText) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -31,6 +30,7 @@ function BookingList() {
 
     }, []);
 
+
     const handleEditBooking = (bookingId) => {
 
         navigate(`/edit-booking/${bookingId}`);
@@ -38,51 +38,48 @@ function BookingList() {
 
     const handleDeleteBooking = (bookingId) => {
 
-    axios.delete(`${process.env.REACT_APP_API_URL}/bookings/${bookingId}`)
-      .then(() => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/bookings/${bookingId}`)
+            .then(() => {
 
-        console.log('Booking successfully deleted!');
-        setBookings((prevBookings) =>
-          prevBookings.filter((booking) => booking._id !== bookingId)
-        );
-      })
-      .catch((error) => {
-        console.log('Error deleting booking', error);
-      });
-  };
+                console.log('Booking successfully deleted!');
+                setBookings((prevBookings) =>
+                    prevBookings.filter((booking) => booking._id !== bookingId)
+                );
+            })
+            .catch((error) => {
+                console.log('Error deleting booking', error);
+            });
+    };
 
     return (
-        <>
+        <div className="max-w-5xl flex flex-col mt-16 mb-16 mx-auto p-6 bg-white rounded shadow-md">
+            <h1 className="text-3xl font-semibold mb-4">All Bookings</h1>
+            {bookings.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {bookings.map((booking) => (
+                        <Booking
+                            key={booking._id}
+                            booking={booking}
+                            onEdit={handleEditBooking}
+                            onDelete={handleDeleteBooking}
+                        />
+                    ))}
+                </div>
 
-            <div className="max-w-5xl flex flex-col mt-16 mb-16 mx-auto p-6 bg-white rounded shadow-md">
-                <h1 className="text-3xl font-semibold mb-4">All Bookings</h1>
-                {bookings.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {bookings.map((booking) => (
-                            <Booking
-                                key={booking._id}
-                                booking={booking}
-                                onEdit={handleEditBooking}
-                                onDelete={handleDeleteBooking}
-                            />
-                        ))}
+            )
+                : (
+                    <div>
+                        <p className="text-gray-600">No bookings available.</p>
+                        <Link to="/addBooking">
+
+                            <button className="bg-blue-500 text-white rounded p-3 my-9">
+                                Add Booking
+                            </button>
+                        </Link>
                     </div>
-                )
-                    : (
-                        <div>
-                            <p className="text-gray-600">No bookings available.</p>
-                            <Link to="/addBooking">
 
-                                <button className="bg-blue-500 text-white rounded p-3 my-9">
-                                    Add Booking
-                                </button>
-                            </Link>
-                        </div>
-
-                    )}
-            </div>
-        </>
-
+                )}
+        </div>
     )
 }
 

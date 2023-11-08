@@ -44,17 +44,17 @@ function EditBookingPage() {
 
                     setShortestTime(response.data.time);
                     setEstimatedPrice(shortestTime * cabActive.price);
-                    
+
                 }
 
                 if (response.data.hasOwnProperty('error')) {
                     console.log('Error calculating shortest time', response);
-                 
+
                 }
 
             })
             .catch(error => {
-              
+
                 console.log('Error calculating shortest time', error);
             });
     };
@@ -75,7 +75,7 @@ function EditBookingPage() {
             console.log('Error fetching cabs:', error);
         }
     }
-    
+
     useEffect(() => {
 
         axios.get(`${process.env.REACT_APP_API_URL}/bookings/${bookingId}`)
@@ -93,6 +93,7 @@ function EditBookingPage() {
             .catch((error) => {
                 console.log('Error fetching booking', error);
             });
+
     }, [bookingId]);
 
     const handleEditBooking = () => {
@@ -130,7 +131,7 @@ function EditBookingPage() {
     const handleLocationChange = (location) => {
         calculateShortestTimeEndPoint(location.source, location.destination);
 
-       
+
     }
 
 
@@ -159,9 +160,10 @@ function EditBookingPage() {
                         id="source"
                         className="w-full p-2 border rounded-md"
                         value={source}
-                        onChange={(e) => {setSource(e.target.value)
-                            e.target.value!== '' ? handleLocationChange({source: e.target.value, destination: destination}) : setEstimatedPrice('')
-                           
+                        onChange={(e) => {
+                            setSource(e.target.value)
+                            e.target.value !== '' ? handleLocationChange({ source: e.target.value, destination: destination }) : setEstimatedPrice('')
+
                         }}
                     />
                 </div>
@@ -174,10 +176,10 @@ function EditBookingPage() {
                         id="destination"
                         className="w-full p-2 border rounded-md"
                         value={destination}
-                        onChange={(e) =>{ 
+                        onChange={(e) => {
                             setDestination(e.target.value)
-                            e.target.value!== '' ?  handleLocationChange({destination: e.target.value, source: source}) : setEstimatedPrice('')
-                           
+                            e.target.value !== '' ? handleLocationChange({ destination: e.target.value, source: source }) : setEstimatedPrice('')
+
                         }}
                     />
                 </div>
@@ -195,24 +197,24 @@ function EditBookingPage() {
                     />
                 </div>
 
-                    <div>
-                        <h2 className="text-2xl font-semibold mb-4">Available Cabs</h2>
-                        <ul>
-                            {availableCabs.length === 0 && (
-                                <div>
-                                    <p>No cabs available right now.</p>
-                                    <p>Wait for a while.</p>
-                                </div>
-                            )}
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {availableCabs.map((cab) => (
-                                    <Cab key={cab._id} name={cab.name} price={cab.price} isActive={cab._id === cabActive._id} onSelect={() => handleCabSelection(cab)} />
-                                ))}
+                <div>
+                    <h2 className="text-2xl font-semibold mb-4">Available Cabs</h2>
+                    <ul>
+                        {availableCabs.length === 0 && (
+                            <div>
+                                <p>No cabs available right now.</p>
+                                <p>Wait for a while.</p>
                             </div>
-                        </ul>
+                        )}
 
-                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {availableCabs.map((cab) => (
+                                <Cab key={cab._id} name={cab.name} price={cab.price} isActive={cab._id === cabActive._id} onSelect={() => handleCabSelection(cab)} />
+                            ))}
+                        </div>
+                    </ul>
+
+                </div>
 
                 <button
                     className="bg-blue-500 text-white rounded p-2 w-full font-semibold"

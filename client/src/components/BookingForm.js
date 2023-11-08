@@ -135,7 +135,7 @@ function BookingForm() {
             setConfirmationMessage('');
             console.log('Error creating booking', error);
         }
-        // navigate('/allBookings')
+        navigate('/allBookings')
     }
 
     return (
@@ -218,7 +218,7 @@ function BookingForm() {
                         </ul>
 
 
-                        {estimatedPrice && estimatedPrice !== 0 ? (
+                        {estimatedPrice && estimatedPrice !== '' ? (
                             <p className="text-lg font-semibold mb-4">Booking Price: {estimatedPrice} rupees</p>
                         ) :
                             <></>
