@@ -56,7 +56,7 @@ function BookingList() {
             <h1 className="text-3xl font-semibold mb-4">All Bookings</h1>
             {bookings.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {bookings.map((booking) => (
+                    {bookings?.map((booking) => (
                         <Booking
                             key={booking._id}
                             booking={booking}

@@ -208,7 +208,7 @@ function EditBookingPage() {
                         )}
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {availableCabs.map((cab) => (
+                            {availableCabs?.map((cab) => (
                                 <Cab key={cab._id} name={cab.name} price={cab.price} isActive={cab._id === cabActive._id} onSelect={() => handleCabSelection(cab)} />
                             ))}
                         </div>
